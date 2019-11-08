@@ -3,13 +3,17 @@ import { Platform, StyleSheet, Text, View, Button } from 'react-native';
 import {styles} from "./styles/base.styles";
 import {envirnment} from "./environment";
 
-class Verses extends Component {
+class Verse extends Component {
     constructor() {
         super();
-        this.state = {verses: []}
+        this.state = {verse: {}}
     }
     componentDidMount() {
-        fetch(`https://api.scripture.api.bible/v1/bibles/${envirnment.BIBLE_ID}/chapters/${this.props.navigation.getParam('versesId', 'GEN.1')}/verses`, {
+        this.getVerse(this.props.navigation.getParam('verse', 'GEN1.1'));
+    }
+
+    getVerse(verseId) {
+        fetch(`https://api.scripture.api.bible/v1/bibles/${envirnment.BIBLE_ID}/verses/${verseId}`, {
             method: 'GET',
             mode: 'cors', // no-cors, *cors, same-origin,
             headers: {
@@ -21,7 +25,7 @@ class Verses extends Component {
             .then(res => res.json())
             .then(({data}) => {
                 console.log(data);
-                this.setState({verses: [...data]})
+                this.setState({verse: data})
             }).catch(error => console.log(error));
     }
 
@@ -33,13 +37,15 @@ class Verses extends Component {
                     <Text style={styles.title}>King James Bible</Text>
                 </View>
                 <View style={styles.listContainer}>
-                    {this.state.verses.map(({reference, id}) => (
-                        <Button key={id} style={styles.button} title={reference} onPress={() => navigate('Verse', {verse: id})}/>
-                    ))}
+                    <Text>{this.state.verse.content? this.state.verse.content.replace(/(<([^>]+)>)/ig, '') : 'Loading'}</Text>
+                </View>
+                <View>
+                    <Button title={this.state.verse.previous? this.state.verse.previous.id : 'Loading'} onPress={() => this.getVerse(this.state.verse.previous? this.state.verse.previous.id : 'Loading')}/>
+                    <Button title={this.state.verse.next? this.state.verse.next.id : 'Loading'} onPress={() => this.getVerse(this.state.verse.next? this.state.verse.next.id : 'Loading')}/>
                 </View>
             </View>
         )
     }
 }
 
-export default Verses;
+export default Verse;
