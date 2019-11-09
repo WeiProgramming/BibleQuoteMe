@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import { Platform, StyleSheet, Text, View, Button } from 'react-native';
+import { Platform, StyleSheet, Text, View} from 'react-native';
 import {styles} from "./styles/base.styles";
 import {envirnment} from "./environment";
+import { Button } from 'react-native-elements';
 
 class Verses extends Component {
     constructor() {
@@ -34,7 +35,7 @@ class Verses extends Component {
                 </View>
                 <View style={styles.listContainer}>
                     {this.state.verses.map(({reference, id}) => (
-                        <Button key={id} style={styles.button} title={reference} onPress={() => navigate('Verse', {verse: id})}/>
+                        <Button key={id} title={reference} onPress={() => navigate('Verse', {verse: id})}/>
                     ))}
                 </View>
             </View>

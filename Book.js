@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, Button } from 'react-native';
+import { Platform, StyleSheet, Text, View} from 'react-native';
 import {envirnment} from "./environment";
 import {styles} from "./styles/base.styles";
+import { Button } from 'react-native-elements';
 
 
 class Book extends Component {
     constructor() {
         super();
         this.state = {books: []}
-    }
-
-    randomNumber = () => {
-        return Math.floor(Math.random() * 100);
     }
     componentDidMount() {
         fetch(`https://api.scripture.api.bible/v1/bibles/${envirnment.BIBLE_ID}/books`, {
@@ -30,20 +27,16 @@ class Book extends Component {
             }).catch(error => console.log(error));
     }
 
-    _buttonPress(e) {
-        alert(e);
-    }
-
     render() {
         const {navigate} = this.props.navigation;
         return (
             <View style={styles.container}>
                 <View>
-                    <Text style={styles.title}>King James Bible</Text>
+                    <Text style={styles.title}>{this.props.navigation.getParam('bookName', 'Failed to get book name')}</Text>
                 </View>
                 <View style={styles.listContainer}>
                     {this.state.books.map(({name, id}) => (
-                        <Button key={id} style={styles.button} title={name} onPress={() => navigate('Chapter',{bookId: id})}/>
+                        <Button key={id} title={name} onPress={() => navigate('Chapter',{bookId: id})}/>
                     ))}
                 </View>
             </View>

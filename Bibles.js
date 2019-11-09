@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import { Platform, StyleSheet, Text, View, Button } from 'react-native';
+import { Platform, StyleSheet, Text, View} from 'react-native';
 import {envirnment} from "./environment";
 import {styles} from "./styles/base.styles";
+import { Button, Header} from 'react-native-elements';
 
 
 class Bibles extends Component {
@@ -26,10 +27,6 @@ class Bibles extends Component {
             }).catch(error => console.log(error));
     }
 
-    _buttonPress(e) {
-        alert(e);
-    }
-
     render() {
         const {navigate} = this.props.navigation;
         return (
@@ -37,9 +34,13 @@ class Bibles extends Component {
                 <View>
                     <Text style={styles.title}>Choose Your Bible</Text>
                 </View>
-                <View style={styles.listContainer}>
+                <View>
                     {this.state.bibles.map(({name, id}) => (
-                        <Button key={id} style={styles.button} title={name} onPress={() => navigate('Book',{bookId: id})}/>
+                        <Button
+                            key={id}
+                            title={name}
+                            onPress={() => {navigate('Book',{bookId: id}); this.props.navigation.setParams({bookName: name})}}
+                        />
                     ))}
                 </View>
             </View>

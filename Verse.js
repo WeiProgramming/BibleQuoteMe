@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import { Platform, StyleSheet, Text, View, Button } from 'react-native';
+import { Platform, StyleSheet, Text, View} from 'react-native';
 import {styles} from "./styles/base.styles";
 import {envirnment} from "./environment";
+import { Button, Divider } from 'react-native-elements';
 
 class Verse extends Component {
     constructor() {
@@ -30,7 +31,6 @@ class Verse extends Component {
     }
 
     render() {
-        const {navigate} = this.props.navigation;
         return (
             <View style={styles.container}>
                 <View>
@@ -39,6 +39,7 @@ class Verse extends Component {
                 <View style={styles.listContainer}>
                     <Text>{this.state.verse.content? this.state.verse.content.replace(/(<([^>]+)>)/ig, '') : 'Loading'}</Text>
                 </View>
+                <Divider style={{ backgroundColor: 'green' }}/>
                 <View>
                     <Button title={this.state.verse.previous? this.state.verse.previous.id : 'Loading'} onPress={() => this.getVerse(this.state.verse.previous? this.state.verse.previous.id : 'Loading')}/>
                     <Button title={this.state.verse.next? this.state.verse.next.id : 'Loading'} onPress={() => this.getVerse(this.state.verse.next? this.state.verse.next.id : 'Loading')}/>

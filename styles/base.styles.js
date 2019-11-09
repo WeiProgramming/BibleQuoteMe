@@ -1,5 +1,7 @@
 import {StyleSheet} from "react-native";
+import {Dimensions} from 'react-native';
 
+const {width, height} = Dimensions.get('window');
 export const styles = StyleSheet.create({
     container: {
         padding: 10,
@@ -12,8 +14,7 @@ export const styles = StyleSheet.create({
         display: 'block'
     },
     button: {
-        marginTop: 5,
-        marginBottom: 5
+        width: width/2
     },
     title: {
         fontSize: 50,

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import { Platform, StyleSheet, Text, View, Button } from 'react-native';
+import { Platform, StyleSheet, Text, View} from 'react-native';
 import {styles} from "./styles/base.styles";
 import {envirnment} from "./environment";
+import { Button } from 'react-native-elements';
 
 class Chapter extends Component {
     constructor() {
@@ -36,7 +37,7 @@ class Chapter extends Component {
                 </View>
                 <View style={styles.listContainer}>
                     {this.state.chapters.map(({reference, number, id}) => (
-                        <Button key={id} style={styles.button} title={reference} onPress={() => navigate('Verses', {versesId: id})}/>
+                        <Button key={id} title={reference} onPress={() => navigate('Verses', {versesId: id})}/>
                     ))}
                 </View>
             </View>
